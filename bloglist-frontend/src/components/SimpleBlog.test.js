@@ -1,52 +1,52 @@
-import React from 'react'
-import { shallow } from 'enzyme'
-import SimpleBlog from './SimpleBlog'
+import React from "react"
+import { shallow } from "enzyme"
+import SimpleBlog from "./SimpleBlog"
 
 
 describe.only(<SimpleBlog/>, () => {
 
-    let simpleBlogComponent
-    let blog
-    let mockHandler
+  let simpleBlogComponent
+  let blog
+  let mockHandler
 
-    beforeEach(() => {
-        blog = {
-            title: "Hunajablogi",
-            author: "Otso Kontio",
-            likes: 15
-        }
+  beforeEach(() => {
+    blog = {
+      title: "Hunajablogi",
+      author: "Otso Kontio",
+      likes: 15
+    }
 
-        mockHandler = jest.fn()
+    mockHandler = jest.fn()
 
-        simpleBlogComponent = shallow(<SimpleBlog blog={blog} onClick={mockHandler} />)
-        console.log(simpleBlogComponent.debug())
-
-
-    }) 
-    test('component renders the title, the author and the number of likes', () => {
+    simpleBlogComponent = shallow(<SimpleBlog blog={blog} onClick={mockHandler} />)
+    console.log(simpleBlogComponent.debug())
 
 
-        const titleDiv = simpleBlogComponent.find('.titleAndAuthor')
+  })
+  test("component renders the title, the author and the number of likes", () => {
 
 
-        expect(titleDiv.text()).toContain(blog.title)
+    const titleDiv = simpleBlogComponent.find(".titleAndAuthor")
 
 
-        const likesDiv = simpleBlogComponent.find('.likes')
+    expect(titleDiv.text()).toContain(blog.title)
 
 
-        expect(likesDiv.text()).toContain(blog.likes)
+    const likesDiv = simpleBlogComponent.find(".likes")
 
-    })
 
-    test('clicking the button twice calls event handler twice', () => {
+    expect(likesDiv.text()).toContain(blog.likes)
 
-        const button = simpleBlogComponent.find('button')
-        for(let i=0;i<2;i++) {
-            button.simulate('click')
-        }
+  })
 
-        expect(mockHandler.mock.calls.length).toBe(2)
+  test("clicking the button twice calls event handler twice", () => {
 
-    } )
+    const button = simpleBlogComponent.find("button")
+    for(let i=0;i<2;i++) {
+      button.simulate("click")
+    }
+
+    expect(mockHandler.mock.calls.length).toBe(2)
+
+  } )
 })
