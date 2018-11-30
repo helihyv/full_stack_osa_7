@@ -4,7 +4,9 @@ module.exports = {
         "es6": true,
         "jest": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -40,7 +42,7 @@ module.exports = {
         "arrow-spacing": [
             "error", {"before": true, "after": true}
         ],
-        "no-conslole": 0
+        "no-console": 0
 
     }
 };
