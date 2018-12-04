@@ -4,80 +4,80 @@ const initialState = null
 
 const loginReducer = (state = initialState, action) => {
 
-    switch (action.type) {
-        default:
-          return state
-        case 'LOGIN':
-          return action.user
-        case 'LOGOUT':
-        return  null  
-    }
+  switch (action.type) {
+  default:
+    return state
+  case "LOGIN":
+    return action.user
+  case "LOGOUT":
+    return  null
+  }
 }
 
 export const initializeLoggedUser = () => {
 
-    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
-  
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
+  const loggedUserJSON = window.localStorage.getItem("loggedBloglistUser")
 
-      blogService.setToken(user.token)
+  if (loggedUserJSON) {
+    const user = JSON.parse(loggedUserJSON)
 
-        return (dispatch) => {
-            dispatch({
-                type: 'LOGIN',
-                user
-
-            })
-        }
-
-    }
+    blogService.setToken(user.token)
 
     return (dispatch) => {
-        dispatch({
-            type: 'DO_NOTHING'            
-        })
+      dispatch({
+        type: "LOGIN",
+        user
+
+      })
     }
+
+  }
+
+  return (dispatch) => {
+    dispatch({
+      type: "DO_NOTHING"
+    })
+  }
 }
 
 export const logout = () => {
-    window.localStorage.removeItem('loggedBloglistUser')
-    blogService.setToken("")
-    return (dispatch) => {
-        dispatch({
-            type: 'LOGOUT'
-        })
-    }
+  window.localStorage.removeItem("loggedBloglistUser")
+  blogService.setToken("")
+  return (dispatch) => {
+    dispatch({
+      type: "LOGOUT"
+    })
+  }
 }
 
 export const login = (username, password) => {
 
-    return async  (dispatch) => {
+  return async  (dispatch) => {
 
-        try {
-            const user = await loginService.login({
-            username,
-            password
-         })  
+    try {
+      const user = await loginService.login({
+        username,
+        password
+      })
 
-        blogService.setToken(user.token)
-        window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
+      blogService.setToken(user.token)
+      window.localStorage.setItem("loggedBloglistUser", JSON.stringify(user))
 
-        console.log("succesfull login")
+      console.log("succesfull login")
 
-        dispatch ({
-            type: "LOGIN",
-            user 
-        })
-    
-        } catch(exception) {  
-           console.log("Failed to login")   
-           dispatch({
-               type: 'DO_NOTHING'
-           }) 
-        }
+      dispatch ({
+        type: "LOGIN",
+        user
+      })
 
+    } catch(exception) {
+      console.log("Failed to login")
+      dispatch({
+        type: "DO_NOTHING"
+      })
     }
+
+  }
 }
 
 export default loginReducer
