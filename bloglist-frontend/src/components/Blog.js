@@ -51,8 +51,7 @@ class Blog extends React.Component {
 
         if (window.confirm(`Delete '${this.state.blog.title}' by ${this.state.blog.author}?`)) {
         
-          this.props.deleteBlog(this.state.blog.id)
-   
+          this.props.deleteBlog(this.state.blog._id)
 //          this.props.notify(`the blog '${blog.title}' by ${blog.author} deleted`, false, 5)
 
   //      this.props.notify(`deleting the blog '${blog.title}' by ${blog.author} failed: ${exception}`, true, 5)

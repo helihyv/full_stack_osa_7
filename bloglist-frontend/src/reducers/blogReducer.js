@@ -14,16 +14,10 @@ const blogReducer = (store = initialState, action) => {
             return blogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
 
         case 'DELETE':
-             console.log(store)
-            const blogToRemove = store.find((blog) => blog.id === action.id)
-            const allBlogs = store
-            allBlogs.remove(blogToRemove)
-            return blogs
+            return store.filter(a => a._id !== action.id)
         
         case 'ADD_LIKE':
-            console.log(action)
             const old  = store.filter(a => a._id !== action.id)
-            console.log(old)
             const liked = store.find(a => a._id === action.id)
             const updatedBlogs = [...old, {...liked, likes: liked.likes +1}]
             return updatedBlogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
@@ -69,9 +63,8 @@ const blogReducer = (store = initialState, action) => {
     return async (dispatch) => {
         const updatedBlog = blog
         updatedBlog.likes = updatedBlog.likes + 1
-        console.log(updatedBlog)
+
         await blogService.update(updatedBlog)
-        console.log("blog updated on server")
     
         dispatch({
             type: 'ADD_LIKE',
