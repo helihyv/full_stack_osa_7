@@ -1,14 +1,10 @@
 import React from "react"
 import { connect } from "react-redux"
-import blogReducer from "../reducers/blogReducer"
-
 
 const UserInfo = (props) => {
 
 
   const user = props.users.find((user) => user._id === props.userId)
-
-  console.log(props)
 
   if (user === undefined) {
     return null

@@ -1,9 +1,6 @@
 import React from 'react'
-import blogService from './services/blogs'
-import loginService from './services/login'
+
 import './App.css'
-import PropTypes from 'prop-types'
-import Blog from './components/Blog'
 import { connect } from 'react-redux';
 import Notification from './components/Notification'
 import { notify } from './reducers/notificationReducer'
@@ -11,7 +8,7 @@ import { notify } from './reducers/notificationReducer'
 import LoginForm from './components/LoginForm'
 import LoginInfo from './components/LoginInfo'
 import { initializeLoggedUser } from './reducers/loginReducer';
-import { initializeBlogs, create} from './reducers/blogReducer'
+import { initializeBlogs} from './reducers/blogReducer'
 import BlogForm from './components/BlogForm'
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'

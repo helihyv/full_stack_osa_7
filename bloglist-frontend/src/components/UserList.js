@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import { BrowserRouter as Link } from "react-router-dom"
+//import { BrowserRouter as Link } from "react-router-dom"
 
 const UserList = (props) => {
   console.log(props)

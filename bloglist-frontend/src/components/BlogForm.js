@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createBlog } from './../reducers/blogReducer'
 import { notify } from './../reducers/notificationReducer'
-import PropTypes from 'prop-types'
-
 
 class BlogForm extends React.Component  { 
     
@@ -86,8 +84,5 @@ class BlogForm extends React.Component  {
   //  url: PropTypes.string.isRequired
   }
 
-  const mapStateToProps = (state) => {
-
-  } 
-
+ 
   export default connect (null, {createBlog, notify})(BlogForm)
