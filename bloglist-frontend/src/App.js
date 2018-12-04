@@ -10,7 +10,7 @@ import { notify } from './reducers/notificationReducer'
 
 import LoginForm from './components/LoginForm'
 import LoginInfo from './components/LoginInfo'
-import { initializeUser } from './reducers/userReducer';
+import { initializeUser } from './reducers/loginReducer';
 import { initializeBlogs, create} from './reducers/blogReducer'
 import BlogForm from './components/BlogForm'
 

@@ -1,8 +1,8 @@
-import loginService from "./../services/login"
-import blogService from "./../services/blogs"
+import loginService from "../services/login"
+import blogService from "../services/blogs"
 const initialState = null
 
-const userReducer = (state = initialState, action) => {
+const loginReducer = (state = initialState, action) => {
 
     switch (action.type) {
         default:
@@ -80,4 +80,4 @@ export const login = (username, password) => {
     }
 }
 
-export default userReducer
+export default loginReducer

@@ -1,5 +1,5 @@
 import React from 'react'
-import { login } from './../reducers/userReducer'
+import { login } from '../reducers/loginReducer'
 import { connect } from 'react-redux'
 import { notify } from './../reducers/notificationReducer'
  
