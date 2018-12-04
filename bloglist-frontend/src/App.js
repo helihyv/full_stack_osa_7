@@ -14,6 +14,10 @@ import { initializeUser } from './reducers/loginReducer';
 import { initializeBlogs, create} from './reducers/blogReducer'
 import BlogForm from './components/BlogForm'
 
+import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import BlogList from "./components/BlogList"
+import UserList from "./components/UserList"
+
 
 
 
@@ -92,8 +96,9 @@ class App extends React.Component {
 
     return (
       <div>
+
  
-        <h2>blogs</h2>
+
         <Notification />
         <LoginInfo />        
 
@@ -104,11 +109,15 @@ class App extends React.Component {
             url={this.state.url}
           />
         </Togglable>
+        <Router>
+          <div>
+        <Link to="/">Blogs</Link>
+        <Link to="/users">Users</Link>
+        <Route exact path="/" render={() => <BlogList/>} />
+        <Route exact path="/users" render={() => <UserList/>} />
 
-        {this.props.blogs
-          .map(blog => 
-            <Blog key={blog._id} blog={blog} deleteFunction={this.deleteBlog} sortBlogsFunction={this.sortBlogs} currentUser={this.state.user}/>
-        )}
+        </div>
+        </Router>
       </div>
     );
   }
