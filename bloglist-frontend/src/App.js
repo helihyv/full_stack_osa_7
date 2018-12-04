@@ -8,6 +8,9 @@ import { connect } from 'react-redux';
 import Notification from './components/Notification'
 import { notify } from './reducers/notificationReducer'
 
+import LoginForm from './components/LoginForm'
+import LoginInfo from './components/LoginInfo'
+
 
 
 
@@ -131,38 +134,7 @@ class App extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  login = async (event) => {
-    event.preventDefault()
-    try {
-      const user = await loginService.login({
-        username: this.state.username,
-        password: this.state.password
-      })
 
-      blogService.setToken(user.token)
-      window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
-      this.setState({
-        username: '',
-        password: '',
-        user
-      })
-      this.props.notify(`user ${user.username} logged in`, false, 5)
-    } catch(exception) {    
-        this.props.notify(`wrong username or password`, true, 5)
-    }
-  }
-
-    logout = (event) => {
-      
-      const username = this.state.user.username
-      this.setState({
-        user: null,
-      })
-
-      window.localStorage.removeItem('loggedBloglistUser')
-      
-      this.props.notify(`user ${username} logged out`, false, 5)
-    }
 
     createBlog = async (event) => {
       event.preventDefault()
@@ -227,32 +199,11 @@ class App extends React.Component {
 
   
 
-    if (this.state.user === null) {
+    if (this.props.user === null) {
       return (
         <div>
         <Notification />
-          <h2>Log in to application</h2>
-          <form onSubmit={this.login}>
-            <div>
-              username
-              <input
-                name='username'
-                type='text'
-                value={this.state.username}
-                onChange={this.handleFieldChange}
-              />
-            </div>
-            <div>
-              password
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleFieldChange}
-              />
-            </div>
-            <button type="submit" >login</button>
-          </form>
+        <LoginForm />
         </div>
       )
     }
@@ -262,7 +213,7 @@ class App extends React.Component {
  
         <h2>blogs</h2>
         <Notification />
-        <p> {this.state.user.username} logged in <button type="button" onClick={this.logout} >logout</button></p>
+        <LoginInfo />        
 
         <Togglable buttonLabel='new blog' >
           <BlogForm
@@ -283,6 +234,12 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
 export default connect(
-  null, {notify}
+  mapStateToProps, {notify}
   )(App)
