@@ -4,22 +4,11 @@ import loginService from './services/login'
 import './App.css'
 import PropTypes from 'prop-types'
 import Blog from './components/Blog'
+import { connect } from 'react-redux';
+import Notification from './components/Notification'
+import { notify } from './reducers/notificationReducer'
 
-const Notification = ({message, isError}) => {
-  if (message === null) {
-    return null
-  } 
-  return (
-    <div className={isError ? "error" : "notification"}>
-      {message}
-    </div>
-  )
-}
 
-Notification.propTypes = {
-  message: PropTypes.string,
-  isError: PropTypes.bool.isRequired
-}
 
 
 
@@ -119,7 +108,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const blogs = blogService.getAll().then((blogs) => {
+    blogService.getAll().then((blogs) => {
       blogs.sort((blog_a,blog_b) => blog_b.likes - blog_a.likes)
       this.setState({ blogs })
 
@@ -142,15 +131,6 @@ class App extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  timedClearNotification = () => {
-    setTimeout(() => {
-      this.setState({
-        notification: null,
-        notificationIsError: false
-      })
-    }, 5000)
-  }
-
   login = async (event) => {
     event.preventDefault()
     try {
@@ -164,18 +144,11 @@ class App extends React.Component {
       this.setState({
         username: '',
         password: '',
-        user,
-        notification: `user ${user.username} logged in`,
-        notificationIsError: false
+        user
       })
-      this.timedClearNotification()
-    } catch(exception) {
-      this.setState({
-        notification: `wrong username or password`,
-        notificationIsError: true
-      }) 
-
-      this.timedClearNotification()
+      this.props.notify(`user ${user.username} logged in`, false, 5)
+    } catch(exception) {    
+        this.props.notify(`wrong username or password`, true, 5)
     }
   }
 
@@ -184,13 +157,11 @@ class App extends React.Component {
       const username = this.state.user.username
       this.setState({
         user: null,
-        notification: `user ${username} logged out`,
-        notificationIsError: false
       })
 
       window.localStorage.removeItem('loggedBloglistUser')
       
-      this.timedClearNotification()
+      this.props.notify(`user ${username} logged out`, false, 5)
     }
 
     createBlog = async (event) => {
@@ -209,19 +180,12 @@ class App extends React.Component {
           title:'',
           author: '',
           url: '',
-          blogs: blogList,
-          notification: `a new blog '${newBlog.title}' by ${newBlog.author} added`,
-          notificationIsError: false
+          blogs: blogList
         })
-        this.timedClearNotification() 
+        this.props.notify(`a new blog '${newBlog.title}' by ${newBlog.author} added`, false, 5) 
         
       } catch(exception) {
-          this.setState({
-            notification: `adding a new blog failed: ${exception}`,
-            notificationIsError: true
-          })
-          this.timedClearNotification()
-
+          this.props.notify(`adding a new blog failed: ${exception}`, true,5)
       }
       
      
@@ -237,25 +201,18 @@ class App extends React.Component {
           const blogs = this.state.blogs
           blogs.splice(blogs.indexOf(blog),1)
           this.setState( {
-            blogs: blogs,
-            notification: `the blog '${blog.title}' by ${blog.author} deleted`,
-            notificationIsError: false
+            blogs: blogs
           })
-          this.timedClearNotification()
+          this.props.notify(`the blog '${blog.title}' by ${blog.author} deleted`, false, 5)
         }
   
       } catch (exception) {
-        this.setState({
-          notification: `deleting the blog '${blog.title}' by ${blog.author} failed: ${exception}`,
-          notificationIsError: true
-        })
-        this.timedClearNotification()
+        this.props.notify(`deleting the blog '${blog.title}' by ${blog.author} failed: ${exception}`, true, 5)
       }
     }
 
 
     sortBlogs = () => {
-      console.log(this.state.blogs)
       const blogs=this.state.blogs 
       blogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
 
@@ -273,7 +230,7 @@ class App extends React.Component {
     if (this.state.user === null) {
       return (
         <div>
-        <Notification message={this.state.notification} isError={this.state.notificationIsError}/>
+        <Notification />
           <h2>Log in to application</h2>
           <form onSubmit={this.login}>
             <div>
@@ -304,7 +261,7 @@ class App extends React.Component {
       <div>
  
         <h2>blogs</h2>
-        <Notification message={this.state.notification} isError={this.state.notificationIsError}/>
+        <Notification />
         <p> {this.state.user.username} logged in <button type="button" onClick={this.logout} >logout</button></p>
 
         <Togglable buttonLabel='new blog' >
@@ -326,4 +283,6 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default connect(
+  null, {notify}
+  )(App)
