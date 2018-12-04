@@ -18,6 +18,7 @@ import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import BlogList from "./components/BlogList"
 import UserList from "./components/UserList"
 import {initializeUsers} from "./reducers/usersReducer"
+import UserInfo from './components/UserInfo'
 
 
 
@@ -117,6 +118,7 @@ class App extends React.Component {
         <Link to="/users">Users</Link>
         <Route exact path="/" render={() => <BlogList/>} />
         <Route exact path="/users" render={() => <UserList/>} />
+        <Route exact path="/users/:id" render={({match}) => <UserInfo userId={match.params.id}/>} />
 
         </div>
         </Router>
