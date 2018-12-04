@@ -112,8 +112,6 @@ class App extends React.Component {
         </Togglable>
         <Router>
           <div>
-        <Link to="/">Blogs</Link>
-        <Link to="/users">Users</Link>
         <Route exact path="/" render={() => <BlogList/>} />
         <Route exact path="/users" render={() => <UserList/>} />
         <Route exact path="/users/:id" render={({match}) => <UserInfo userId={match.params.id}/>} />

@@ -2,6 +2,7 @@ import React from 'react'
 import { logout } from '../reducers/loginReducer'
 import { notify } from '../reducers/notificationReducer'
 import { connect } from 'react-redux' 
+import { BrowserRouter as Router, Link} from 'react-router-dom'
 
 
 
@@ -16,7 +17,12 @@ class LoginInfo extends React.Component {
 
     render () { 
     return (
-        <p> {this.props.username} logged in <button type="button" onClick={this.handleClick} >logout</button></p>
+
+        <div> 
+            <a href="/">Blogs</a>
+            <a href="/users">Users</a>
+            {this.props.username} logged in <button type="button" onClick={this.handleClick} >logout</button>
+        </div>
     )}
 }
 
