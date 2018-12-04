@@ -10,6 +10,8 @@ import { notify } from './reducers/notificationReducer'
 
 import LoginForm from './components/LoginForm'
 import LoginInfo from './components/LoginInfo'
+import { initializeUser } from './reducers/userReducer';
+import { create} from './services/blogs'
 
 
 
@@ -111,23 +113,15 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+
     blogService.getAll().then((blogs) => {
       blogs.sort((blog_a,blog_b) => blog_b.likes - blog_a.likes)
       this.setState({ blogs })
 
     })
-  
-    const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
-  
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
 
-      this.setState({user})
-      blogService.setToken(user.token)
-
-    }
-
-
+    this.props.initializeUser()
+    
   }
 
   handleFieldChange = (event) => {
@@ -241,5 +235,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps, {notify}
+  mapStateToProps, {notify, initializeUser}
   )(App)

@@ -1,4 +1,5 @@
 import loginService from "./../services/login"
+import blogService from "./../services/blogs"
 const initialState = null
 
 const userReducer = (state = initialState, action) => {
@@ -20,7 +21,7 @@ export const initializeUser = () => {
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
 
-//      blogService.setToken(user.token)
+      blogService.setToken(user.token)
 
         return (dispatch) => {
             dispatch({
@@ -41,6 +42,7 @@ export const initializeUser = () => {
 
 export const logout = () => {
     window.localStorage.removeItem('loggedBloglistUser')
+    blogService.setToken("")
     return (dispatch) => {
         dispatch({
             type: 'LOGOUT'
@@ -58,7 +60,7 @@ export const login = (username, password) => {
             password
          })  
 
-//        blogService.setToken(user.token)
+        blogService.setToken(user.token)
         window.localStorage.setItem('loggedBloglistUser', JSON.stringify(user))
 
         console.log("succesfull login")

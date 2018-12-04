@@ -20,8 +20,7 @@ class LoginForm extends React.Component  {
     handleLogin = async (event) => {
         event.preventDefault()
 
-        console.log(this.props.login)
-        await this.props.login(this.state.username, this.state.password)
+        this.props.login(this.state.username, this.state.password)
 
         console.log(this.props.user)
 
