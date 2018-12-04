@@ -16,6 +16,7 @@ import BlogList from "./components/BlogList"
 import UserList from "./components/UserList"
 import {initializeUsers} from "./reducers/usersReducer"
 import UserInfo from './components/UserInfo'
+import BlogView from "./components/BlogView"
 
 
 
@@ -98,7 +99,7 @@ class App extends React.Component {
       <div>
 
  
-
+        <h2>Blog app</h2>
         <Notification />
         <LoginInfo />        
 
@@ -116,6 +117,7 @@ class App extends React.Component {
         <Route exact path="/" render={() => <BlogList/>} />
         <Route exact path="/users" render={() => <UserList/>} />
         <Route exact path="/users/:id" render={({match}) => <UserInfo userId={match.params.id}/>} />
+        <Route exact path="/blogs/:id" render={({match}) => <BlogView blogId={match.params.id}/>} />
 
         </div>
         </Router>

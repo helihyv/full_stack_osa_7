@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { deleteBlog, addLike } from '../reducers/blogReducer'
 import { connect } from 'react-redux'
+import { BrowserRouter as Link} from 'react-router-dom'
 
 
 const DeleteButton = ({onClick,blog,user}) => {
@@ -78,16 +79,9 @@ class Blog extends React.Component {
           
       return (
         <div style={blogStyle} >
-          <div onClick={this.toggleFullInfo} className="nameAndAuthor">
-           {this.state.blog.title}: {this.state.blog.author}
+          <div className="nameAndAuthor">
+           <a href= {`/blogs/${this.state.blog._id}`}><div>{this.state.blog.title}: {this.state.blog.author}</div></a>
           </div>
-          <div style={showWhenFullInfo} className="details">
-            <a href={this.state.blog.url} >{this.state.blog.url}</a><br/>
-            {this.state.blog.likes} likes <button type="button" onClick={this.handleAddLike}>like</button><br/>
-            added by {userInfo}<br/>
-            <DeleteButton onClick={this.handleDelete} blog={this.state.blog} user={this.state.currentUser}/>
-  
-          </div>  
         </div>
       )
   
