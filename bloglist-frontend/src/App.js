@@ -89,6 +89,7 @@ class App extends React.Component {
     if (this.props.user === null) {
       return (
         <div>
+        <h2>Blog app</h2>
         <Notification />
         <LoginForm />
         </div>

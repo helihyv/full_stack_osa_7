@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 const Notification = ({ message, isError }) => {
-  if (message === null) {
+  if (message === "") {
     return null
   }
   return (
