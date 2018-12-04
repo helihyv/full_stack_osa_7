@@ -11,7 +11,7 @@ import { notify } from './reducers/notificationReducer'
 import LoginForm from './components/LoginForm'
 import LoginInfo from './components/LoginInfo'
 import { initializeUser } from './reducers/userReducer';
-import { create} from './services/blogs'
+import { initializeBlogs, create} from './reducers/blogReducer'
 
 
 
@@ -100,7 +100,6 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      blogs: [],
       user: null,
       username: '',
       password: '',
@@ -114,12 +113,7 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    blogService.getAll().then((blogs) => {
-      blogs.sort((blog_a,blog_b) => blog_b.likes - blog_a.likes)
-      this.setState({ blogs })
-
-    })
-
+    this.props.initializeBlogs()
     this.props.initializeUser()
     
   }
@@ -157,36 +151,6 @@ class App extends React.Component {
      
     }
 
-    deleteBlog = async(blog) => {
-      try {
-
-        if (window.confirm(`Delete '${blog.title}' by ${blog.author}?`)) {
-        
-          await blogService.remove(blog._id)
-   
-          const blogs = this.state.blogs
-          blogs.splice(blogs.indexOf(blog),1)
-          this.setState( {
-            blogs: blogs
-          })
-          this.props.notify(`the blog '${blog.title}' by ${blog.author} deleted`, false, 5)
-        }
-  
-      } catch (exception) {
-        this.props.notify(`deleting the blog '${blog.title}' by ${blog.author} failed: ${exception}`, true, 5)
-      }
-    }
-
-
-    sortBlogs = () => {
-      const blogs=this.state.blogs 
-      blogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
-
-      this.setState({
-        blogs
-      })
-    }
-
     
 
   render() {
@@ -219,7 +183,7 @@ class App extends React.Component {
           />
         </Togglable>
 
-        {this.state.blogs
+        {this.props.blogs
           .map(blog => 
             <Blog key={blog._id} blog={blog} deleteFunction={this.deleteBlog} sortBlogsFunction={this.sortBlogs} currentUser={this.state.user}/>
         )}
@@ -230,10 +194,11 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    blogs: state.blogs,
     user: state.user
   }
 }
 
 export default connect(
-  mapStateToProps, {notify, initializeUser}
+  mapStateToProps, {notify, initializeUser, initializeBlogs}
   )(App)

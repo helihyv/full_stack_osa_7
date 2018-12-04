@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import blogService from '../services/blogs'
+import { deleteBlog, addLike } from '../reducers/blogReducer'
+import { connect } from 'react-redux'
+
 
 const DeleteButton = ({onClick,blog,user}) => {
 
@@ -31,8 +33,6 @@ class Blog extends React.Component {
       {
         blog: props.blog,
         showFullInfo: false,
-        deleteFunction: props.deleteFunction,
-        currentUser: props.currentUser
       }
     }
   
@@ -42,27 +42,22 @@ class Blog extends React.Component {
       })
     }
   
-    addLike = async () => {
-      const blog = this.state.blog
-      blog.likes += 1
-      
-      try {
-        await blogService.update(blog)
-        this.setState({
-          blog: blog
-        })
-      } catch (exception) {
-          console.log(exception)
-      }
-
-      this.props.sortBlogsFunction()
-
+    handleAddLike = async () => {
+      this.props.addLike(this.state.blog)
     }
   
     handleDelete = () => {
+
+
+        if (window.confirm(`Delete '${this.state.blog.title}' by ${this.state.blog.author}?`)) {
+        
+          this.props.deleteBlog(this.state.blog.id)
    
-      this.state.deleteFunction(this.state.blog)
+//          this.props.notify(`the blog '${blog.title}' by ${blog.author} deleted`, false, 5)
+
+  //      this.props.notify(`deleting the blog '${blog.title}' by ${blog.author} failed: ${exception}`, true, 5)
     }
+  }
 
   
     render() {
@@ -89,7 +84,7 @@ class Blog extends React.Component {
           </div>
           <div style={showWhenFullInfo} className="details">
             <a href={this.state.blog.url} >{this.state.blog.url}</a><br/>
-            {this.state.blog.likes} likes <button type="button" onClick={this.addLike}>like</button><br/>
+            {this.state.blog.likes} likes <button type="button" onClick={this.handleAddLike}>like</button><br/>
             added by {userInfo}<br/>
             <DeleteButton onClick={this.handleDelete} blog={this.state.blog} user={this.state.currentUser}/>
   
@@ -118,4 +113,10 @@ class Blog extends React.Component {
     }).isRequired
   }
 
-  export default Blog
+  const mapStateToProps = (state) => {
+    return {
+      currentUser: state.user
+    }
+  }
+
+  export default connect (mapStateToProps, {deleteBlog, addLike})(Blog)
