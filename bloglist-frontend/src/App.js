@@ -10,13 +10,14 @@ import { notify } from './reducers/notificationReducer'
 
 import LoginForm from './components/LoginForm'
 import LoginInfo from './components/LoginInfo'
-import { initializeUser } from './reducers/loginReducer';
+import { initializeLoggedUser } from './reducers/loginReducer';
 import { initializeBlogs, create} from './reducers/blogReducer'
 import BlogForm from './components/BlogForm'
 
 import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import BlogList from "./components/BlogList"
 import UserList from "./components/UserList"
+import {initializeUsers} from "./reducers/usersReducer"
 
 
 
@@ -74,7 +75,8 @@ class App extends React.Component {
   componentDidMount() {
 
     this.props.initializeBlogs()
-    this.props.initializeUser()
+    this.props.initializeLoggedUser()
+    this.props.initializeUsers()
     
   }
 
@@ -131,5 +133,5 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(
-  mapStateToProps, {notify, initializeUser, initializeBlogs}
+  mapStateToProps, {notify, initializeLoggedUser, initializeBlogs, initializeUsers}
   )(App)

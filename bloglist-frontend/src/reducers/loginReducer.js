@@ -14,7 +14,7 @@ const loginReducer = (state = initialState, action) => {
     }
 }
 
-export const initializeUser = () => {
+export const initializeLoggedUser = () => {
 
     const loggedUserJSON = window.localStorage.getItem('loggedBloglistUser')
   
