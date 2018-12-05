@@ -69,10 +69,8 @@ export const deleteBlog = (id) => {
 
 export const addLike = (blog) => {
   return async (dispatch) => {
-    const updatedBlog = blog
-    updatedBlog.likes = updatedBlog.likes + 1
 
-    await blogService.update(updatedBlog)
+    await blogService.update( { ...blog, likes: blog.likes +1 })
 
     dispatch({
       type: "ADD_LIKE",
