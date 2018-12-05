@@ -11,7 +11,7 @@ class LoginInfo extends React.Component {
     handleClick = () => {
 
         this.props.logout()
-        this.props.notify(`user ${this.props.username} logged out`, false, 5)
+        this.props.notify(`user ${this.props.userFullName} logged out`, false, 5)
 
     }
 
@@ -19,16 +19,16 @@ class LoginInfo extends React.Component {
     return (
 
         <div> 
-            <a href="/">Blogs</a>
-            <a href="/users">Users</a>
-            {this.props.username} logged in <button type="button" onClick={this.handleClick} >logout</button>
+            <a href="/">Blogs</a> &nbsp;
+            <a href="/users">Users</a>&nbsp;
+            <em> {this.props.userFullName} logged in </em><button type="button" onClick={this.handleClick} >logout</button>
         </div>
     )}
 }
 
 const mapStateToProps = (state) => {
     return {
-        username: state.user ? state.user.username : null
+        userFullName: state.user ? state.user.name : null
     }
 }
 
