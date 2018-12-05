@@ -30,7 +30,8 @@ const update = async (updatedBlog) => {
     likes: updatedBlog.likes,
     author: updatedBlog.author,
     title: updatedBlog.title,
-    url: updatedBlog.url
+    url: updatedBlog.url,
+    comments: updatedBlog.comments
   }
 
   await axios.put(baseUrl.concat("/").concat(updatedBlog._id),updateToSend)
