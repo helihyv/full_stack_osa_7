@@ -20,15 +20,17 @@ class LoginForm extends React.Component  {
     handleLogin = async (event) => {
         event.preventDefault()
 
-        this.props.login(this.state.username, this.state.password)
+        try {
 
-        console.log(this.props.user)
+        await this.props.login(this.state.username, this.state.password)
+        this.props.notify(`user ${this.state.username} logged in`, false, 5)
 
-        if (this.props.user) {
-            this.props.notify(`user ${this.props.user.username} logged in`, false, 5)
-        }else {    
+        } catch (exception) {      
             this.props.notify(`wrong username or password`, true, 5)
+            console.log(exception)
         }
+
+
     }
     
 

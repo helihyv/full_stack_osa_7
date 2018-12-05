@@ -54,7 +54,7 @@ export const login = (username, password) => {
 
   return async  (dispatch) => {
 
-    try {
+  
       const user = await loginService.login({
         username,
         password
@@ -69,13 +69,6 @@ export const login = (username, password) => {
         type: "LOGIN",
         user
       })
-
-    } catch(exception) {
-      console.log("Failed to login")
-      dispatch({
-        type: "DO_NOTHING"
-      })
-    }
 
   }
 }
