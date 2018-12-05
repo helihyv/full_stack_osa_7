@@ -25,16 +25,18 @@ class BlogForm extends React.Component  {
 
           console.log(createBlog)
         
-      
-          this.props.createBlog(this.state.title, this.state.author, this.state.url)
+        try {
+          await this.props.createBlog(this.state.title, this.state.author, this.state.url)
            
-      //            this.props.notify(`a new blog '${newBlog.title}' by ${newBlog.author} added`, false, 5) 
-            
+          this.props.notify(`a new blog '${this.state.title}' by ${this.state.author} added`, false, 5) 
+
+        } catch (exception){
       
-      //              this.props.notify(`adding a new blog failed: ${exception}`, true,5)
+          this.props.notify(`adding a new blog failed: ${exception}`, true,5)
       
         }
-       
+
+      }
 
     render () {
     return (
