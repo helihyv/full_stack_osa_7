@@ -41,7 +41,8 @@ blogsRouter.post('/', async (request, response) => {
       author: body.author,
       url: body.url,
       likes: body.likes || 0,
-      user: user._id
+      user: user._id,
+      comments: body.comments || []
     })
    
     const savedBlog = await blog.save()
@@ -128,6 +129,10 @@ blogsRouter.put('/:id', async (request, response) => { //päivittää pyynnöss�
 
     if (body.likes) {
       changesInBlog.likes = body.likes
+    }
+
+    if (body.comments) {
+      changesInBlog.comments = body.comments
     }
     
     console.log (changesInBlog)
