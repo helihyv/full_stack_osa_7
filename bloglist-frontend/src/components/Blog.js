@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { deleteBlog, addLike } from '../reducers/blogReducer'
 import { connect } from 'react-redux'
-import { BrowserRouter as Link} from 'react-router-dom'
-
 
 const DeleteButton = ({onClick,blog,user}) => {
 
@@ -69,14 +67,7 @@ class Blog extends React.Component {
         marginBottom: 5
       }
   
-      const showWhenFullInfo= {
-        display: this.state.showFullInfo ? '' :'none',
-        paddingTop: 5,
-        paddingLeft: 15 
-      }
-  
-          const userInfo= this.state.blog.user ? this.state.blog.user.name : ""
-          
+         
       return (
         <div style={blogStyle} >
           <div className="nameAndAuthor">

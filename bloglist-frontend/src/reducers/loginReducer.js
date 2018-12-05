@@ -54,21 +54,21 @@ export const login = (username, password) => {
 
   return async  (dispatch) => {
 
-  
-      const user = await loginService.login({
-        username,
-        password
-      })
 
-      blogService.setToken(user.token)
-      window.localStorage.setItem("loggedBloglistUser", JSON.stringify(user))
+    const user = await loginService.login({
+      username,
+      password
+    })
 
-      console.log("succesfull login")
+    blogService.setToken(user.token)
+    window.localStorage.setItem("loggedBloglistUser", JSON.stringify(user))
 
-      dispatch ({
-        type: "LOGIN",
-        user
-      })
+    console.log("succesfull login")
+
+    dispatch ({
+      type: "LOGIN",
+      user
+    })
 
   }
 }

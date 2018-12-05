@@ -11,7 +11,7 @@ import { initializeLoggedUser } from './reducers/loginReducer';
 import { initializeBlogs} from './reducers/blogReducer'
 import BlogForm from './components/BlogForm'
 
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 import BlogList from "./components/BlogList"
 import UserList from "./components/UserList"
 import {initializeUsers} from "./reducers/usersReducer"

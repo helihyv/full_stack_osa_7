@@ -1,6 +1,6 @@
 const initialState = {
-    text: "",
-    isError: false
+  text: "",
+  isError: false
 }
 
 const notificationReducer = (state = initialState, action) => {

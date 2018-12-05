@@ -1,8 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { addLike } from './../reducers/blogReducer'
-import { notify } from './../reducers/notificationReducer'
-import DeleteButton from './DeleteButton'
+import React from "react"
+import { connect } from "react-redux"
+import { addLike } from "./../reducers/blogReducer"
+import { notify } from "./../reducers/notificationReducer"
+import DeleteButton from "./DeleteButton"
 
 const handleAddLike = (blog, addLikeFunction, notifyFunction) => async ()  => {
   try {
@@ -14,32 +14,32 @@ const handleAddLike = (blog, addLikeFunction, notifyFunction) => async ()  => {
 }
 const BlogView = (props) => {
 
-    const blog = props.blogs.find((blog) => blog._id === props.blogId)
+  const blog = props.blogs.find((blog) => blog._id === props.blogId)
 
-    if (blog === undefined) {
-        return null
-    }
+  if (blog === undefined) {
+    return null
+  }
 
-    const adder = blog.user ? blog.user.username : "anonymous"
-    return (
-        <div>
-            <h2>The {blog.title} {blog.author} </h2>
-            <a href={blog.url}>{blog.url}</a><br/>
-            {blog.likes} likes <button type="button" onClick={handleAddLike(blog, props.addLike, props.notify)}>like</button><br/>
+  const adder = blog.user ? blog.user.username : "anonymous"
+  return (
+    <div>
+      <h2>The {blog.title} {blog.author} </h2>
+      <a href={blog.url}>{blog.url}</a><br/>
+      {blog.likes} likes <button type="button" onClick={handleAddLike(blog, props.addLike, props.notify)}>like</button><br/>
             added by {adder} <br/>
-            <DeleteButton blog={blog} />
+      <DeleteButton blog={blog} />
 
-        </div>
-    )
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
-    return {
-        blogs: state.blogs
-    }
-} 
+  return {
+    blogs: state.blogs
+  }
+}
 
 export default connect (
   mapStateToProps,
-  {addLike, notify}
-  )(BlogView)
+  { addLike, notify }
+)(BlogView)

@@ -2,9 +2,6 @@ import React from 'react'
 import { logout } from '../reducers/loginReducer'
 import { notify } from '../reducers/notificationReducer'
 import { connect } from 'react-redux' 
-import { BrowserRouter as Router, Link} from 'react-router-dom'
-
-
 
 class LoginInfo extends React.Component {
 
