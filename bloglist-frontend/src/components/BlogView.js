@@ -28,7 +28,10 @@ const BlogView = (props) => {
       {blog.likes} likes <button type="button" onClick={handleAddLike(blog, props.addLike, props.notify)}>like</button><br/>
             added by {adder} <br/>
       <DeleteButton blog={blog} />
-
+      <h2>comments</h2>
+      <ul>
+        {blog.comments.map( comment => <li>{comment}</li> )}
+      </ul>
     </div>
   )
 }
