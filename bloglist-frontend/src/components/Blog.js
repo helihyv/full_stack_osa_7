@@ -35,10 +35,4 @@ const Blog = ({ blog }) => {
     }).isRequired
   }
 
-  const mapStateToProps = (state) => {
-    return {
-      currentUser: state.user
-    }
-  }
-
   export default Blog

@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { addLike } from "./../reducers/blogReducer"
 import { notify } from "./../reducers/notificationReducer"
 import DeleteButton from "./DeleteButton"
+import CommentForm from "./CommentForm";
 
 const handleAddLike = (blog, addLikeFunction, notifyFunction) => async ()  => {
   try {
@@ -29,8 +30,9 @@ const BlogView = (props) => {
             added by {adder} <br/>
       <DeleteButton blog={blog} />
       <h2>comments</h2>
+      <CommentForm blog={blog}/>
       <ul>
-        {blog.comments.map( comment => <li>{comment}</li> )}
+        {blog.comments.map( comment => <li key={Math.random()}>{comment}</li> )}
       </ul>
     </div>
   )

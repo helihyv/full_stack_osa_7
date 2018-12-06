@@ -47,4 +47,10 @@ const remove = async (id) => {
   await axios.delete(baseUrl.concat("/").concat(id),config )
 }
 
-export default { getAll, create, setToken, update, remove }
+const createComment = async (comment, blogId) => {
+  
+ 
+  await axios.post(baseUrl.concat("/").concat(blogId).concat("/comments"), { comment })
+
+}
+export default { getAll, create, setToken, update, remove, createComment }

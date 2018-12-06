@@ -24,7 +24,15 @@ const blogReducer = (store = initialState, action) => {
     const updatedBlogs = [...old, { ...liked, likes: liked.likes +1 }]
     return updatedBlogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
 
+  case "ADD_COMMENT":
+    const oldBlogs = store.filter(a => a._id !== action.id)
+    const commented = store.find(a => a._id === action.id)
+    let updatedComments = commented.comments ? commented.comments : []
+    updatedComments = updatedComments.concat(action.comment) 
+    return [...oldBlogs, { ...commented, comments: updatedComments }]
+
   }
+
 }
 
 
@@ -75,6 +83,19 @@ export const addLike = (blog) => {
     dispatch({
       type: "ADD_LIKE",
       id: blog._id
+    })
+  }
+}
+
+export const addComment = (comment, blogId) => {
+  return async (dispatch) => {
+
+    await blogService.createComment(comment, blogId)
+
+    dispatch({
+      type: "ADD_COMMENT",
+      id: blogId,
+      comment
     })
   }
 }
