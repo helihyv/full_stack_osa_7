@@ -153,4 +153,28 @@ blogsRouter.put('/:id', async (request, response) => { //päivittää pyynnöss�
   }
 })
 
+blogsRouter.post('/:id/comments', async (request, response) => {
+  const comment = request.body.comment
+  const id = request.params.id
+
+  try {
+
+    const blogToComment = await Blog.findById(id)
+   
+    if (!blogToComment) {
+      response.status(400).send( { error: 'no blog with this id exists'})
+    }
+    
+    blogToComment.comments = blogToComment.comments.concat(comment)
+    await blogToComment.save()
+
+    response.json(Blog.format(blogToComment))
+
+  } catch (exception) {
+    console.log(exception)
+    response.status(400).send( { error: 'malformatted id' } )
+  }
+
+})
+
 module.exports = blogsRouter
