@@ -24,8 +24,7 @@ class BlogForm extends React.Component  {
     handleCreateBlog = async (event) => {
           event.preventDefault()
 
-          console.log(createBlog)
-        
+       
         try {
           await this.props.createBlog(this.state.title, this.state.author, this.state.url)
            

@@ -8,6 +8,17 @@ const usersReducer = (store = initialState, action) => {
     return store
   case "INIT_USERS":
     return action.users
+
+  case "CREATE_BLOG":
+    return store.map((user) => 
+ 
+    {
+      if (user._id === action.blog.user._id) {
+        return { ...user, blogs: user.blogs.concat(action.blog) }
+      }
+      return user
+    })
+
   }
 }
 

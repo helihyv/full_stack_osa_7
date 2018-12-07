@@ -8,9 +8,7 @@ const blogReducer = (store = initialState, action) => {
     return store
   case "INIT_BLOGS":
     return action.blogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
-  case "CREATE":
-    console.log("Saako täällä logata")
-    console.log(store)
+  case "CREATE_BLOG":
     let blogs = store
     blogs = blogs.concat(action.blog)
     return blogs.sort((blog_a,blog_b) => {return blog_b.likes - blog_a.likes})
@@ -48,17 +46,14 @@ export const initializeBlogs = () => {
 }
 
 export const createBlog = (title, author, url) => {
-  console.log("Tänne ei piätisi laittaa mitään")
   return async (dispatch) => {
-    console.log("creating on server")
     const newBlog = await blogService.create( {
       title,
       author,
       url
     })
-    console.log("blog created on server")
     dispatch({
-      type: "CREATE",
+      type: "CREATE_BLOG",
       blog: newBlog
     })
   }
@@ -67,7 +62,6 @@ export const createBlog = (title, author, url) => {
 export const deleteBlog = (id) => {
   return async (dispatch) => {
     await blogService.remove(id)
-    console.log("blog deleted from server")
     dispatch({
       type: "DELETE",
       id
