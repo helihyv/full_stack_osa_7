@@ -5,30 +5,25 @@ import { notify } from './../reducers/notificationReducer'
 import { Form, Button} from 'semantic-ui-react'
 
 class BlogForm extends React.Component  { 
-    
-    constructor(props) {
-        super(props)
-        this.state = {
-            title:"",
-            author:"",
-            url:""
-        }
-    }
-    
-    handleChange = (event) => {
-        event.preventDefault()
-        this.setState({ [event.target.name]: event.target.value })
-        }
-      
+     
       
     handleCreateBlog = async (event) => {
           event.preventDefault()
 
-       
+        const titleField = event.target.title
+        const authorField = event.target.author
+        const urlField  = event.target.url   
+
+
+            
         try {
-          await this.props.createBlog(this.state.title, this.state.author, this.state.url)
+          await this.props.createBlog(titleField.value, authorField.value, urlField.value)
            
-          this.props.notify(`a new blog '${this.state.title}' by ${this.state.author} added`, false, 5) 
+          this.props.notify(`a new blog '${titleField.value}' by ${authorField.value} added`, false, 5) 
+          titleField.value = ""
+          authorField.value = ""
+          urlField.value = ""
+
 
         } catch (exception){
       
@@ -48,8 +43,6 @@ class BlogForm extends React.Component  {
           <input
             type="text"
             name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
           />
         </Form.Field>
         <Form.Field>
@@ -57,8 +50,7 @@ class BlogForm extends React.Component  {
           <input
             type="text"
             name="author"
-            value={this.state.author}
-            onChange={this.handleChange}
+
           />
         </Form.Field>
         <Form.Field>
@@ -66,8 +58,7 @@ class BlogForm extends React.Component  {
           <input
             type="text"
             name="url"
-            value={this.state.url}
-            onChange={this.handleChange}
+
           />
         </Form.Field>
         <Button type="submit">create</Button>
@@ -78,13 +69,5 @@ class BlogForm extends React.Component  {
     }
   }
   
-  BlogForm.propTypes = {
-  //  onSubmit: PropTypes.func.isRequired,
-  //  handleChange: PropTypes.func.isRequired,
-  //  title: PropTypes.string.isRequired,
-  //  author: PropTypes.string.isRequired,
-  //  url: PropTypes.string.isRequired
-  }
-
  
   export default connect (null, {createBlog, notify})(BlogForm)
