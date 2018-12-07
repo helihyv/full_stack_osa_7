@@ -6,39 +6,25 @@ import { Form, Button, FormField } from 'semantic-ui-react'
  
 class LoginForm extends React.Component  {
 
-    constructor (props) {
-        super(props)
-        this.state = {
-            username: "",
-            password: ""
-        }
-    }
-
-    handleFieldChange = (event) => {
-        this.setState({ [event.target.name]: event.target.value })
-      }
-
     handleLogin = async (event) => {
         event.preventDefault()
+        const username = event.target.username.value
+        const password = event.target.password.value
+        event.target.username.value = ""
+        event.target.password.value = ""
+
 
         try {
 
-        await this.props.login(this.state.username, this.state.password)
-        console.log(this.props)
+        await this.props.login(username, password)
 
-        this.props.notify(`user ${this.state.username} logged in`, false, 5)
+        this.props.notify(`user ${username} logged in`, false, 5)
 
         } catch (exception) {      
             this.props.notify(`wrong username or password`, true, 5)
             console.log(exception)
         }
-
-
     }
-    
-
-
-
 
     render() {
 
@@ -47,12 +33,12 @@ class LoginForm extends React.Component  {
         <h2>Log in to application</h2>
         <Form onSubmit={this.handleLogin}>
         <FormField>
-            username
+            <label>username</label>
             <input
             name='username'
             type='text'
-            value={this.state.username}
-            onChange={this.handleFieldChange}
+
+
             />
         </FormField>
         <FormField>
@@ -60,8 +46,8 @@ class LoginForm extends React.Component  {
             <input
             type="password"
             name="password"
-            value={this.state.password}
-            onChange={this.handleFieldChange}
+
+
             />
         </FormField>
         <Button type="submit" >login</Button>
