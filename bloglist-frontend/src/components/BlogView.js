@@ -3,7 +3,8 @@ import { connect } from "react-redux"
 import { addLike } from "./../reducers/blogReducer"
 import { notify } from "./../reducers/notificationReducer"
 import DeleteButton from "./DeleteButton"
-import CommentForm from "./CommentForm";
+import CommentForm from "./CommentForm"
+import { Button } from "semantic-ui-react"
 
 const handleAddLike = (blog, addLikeFunction, notifyFunction) => async ()  => {
   try {
@@ -22,11 +23,17 @@ const BlogView = (props) => {
   }
 
   const adder = blog.user ? blog.user.username : "anonymous"
+
+ const likeButtonStyle = {
+   marginLeft: 10
+ }
+
   return (
     <div>
       <h2>The {blog.title} {blog.author} </h2>
       <a href={blog.url}>{blog.url}</a><br/>
-      {blog.likes} likes <button type="button" onClick={handleAddLike(blog, props.addLike, props.notify)}>like</button><br/>
+      {blog.likes} likes
+      <Button style={likeButtonStyle} type="button" onClick={handleAddLike(blog, props.addLike, props.notify)}>like</Button><br/>
             added by {adder} <br/>
       <DeleteButton blog={blog} />
       <h2>comments</h2>

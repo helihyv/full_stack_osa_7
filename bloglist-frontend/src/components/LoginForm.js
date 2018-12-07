@@ -2,6 +2,7 @@ import React from 'react'
 import { login } from '../reducers/loginReducer'
 import { connect } from 'react-redux'
 import { notify } from './../reducers/notificationReducer'
+import { Form, Button, FormField } from 'semantic-ui-react'
  
 class LoginForm extends React.Component  {
 
@@ -23,6 +24,8 @@ class LoginForm extends React.Component  {
         try {
 
         await this.props.login(this.state.username, this.state.password)
+        console.log(this.props)
+
         this.props.notify(`user ${this.state.username} logged in`, false, 5)
 
         } catch (exception) {      
@@ -42,8 +45,8 @@ class LoginForm extends React.Component  {
     return (
     <div>
         <h2>Log in to application</h2>
-        <form onSubmit={this.handleLogin}>
-        <div>
+        <Form onSubmit={this.handleLogin}>
+        <FormField>
             username
             <input
             name='username'
@@ -51,18 +54,18 @@ class LoginForm extends React.Component  {
             value={this.state.username}
             onChange={this.handleFieldChange}
             />
-        </div>
-        <div>
-            password
+        </FormField>
+        <FormField>
+            <label>password</label>
             <input
             type="password"
             name="password"
             value={this.state.password}
             onChange={this.handleFieldChange}
             />
-        </div>
-        <button type="submit" >login</button>
-        </form>
+        </FormField>
+        <Button type="submit" >login</Button>
+        </Form>
     </div>
     )}
 }

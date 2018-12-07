@@ -1,38 +1,31 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
-  
+import React from "react"
+import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
+import { Table } from "semantic-ui-react"
+
 const Blog = ({ blog }) => {
-  
-        const blogStyle = {
-        paddingTop: 10,
-        paddingLeft: 2,
-        border: 'solid',
-        borderWidth: 1,
-        marginBottom: 5
-      }
-         
-      return (
-        <div style={blogStyle} >
-          <div className="nameAndAuthor">
-           <Link to= {`/blogs/${blog._id}`}>{blog.title} {blog.author}</Link>
-          </div>
-        </div>
-      )
 
-  }
-  
-  Blog.propTypes = {
-    blog: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      author: PropTypes.string.isRequired,
-      url: PropTypes.string.isRequired,
-      likes: PropTypes.number.isRequired,
-      user: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        username: PropTypes.string.isRequired
-      })
-    }).isRequired
-  }
 
-  export default Blog
+  return (
+    <Table.Row id={blog._id}>
+      <Table.Cell>
+        <Link to= {`/blogs/${blog._id}`}>{blog.title} </Link>
+      </Table.Cell>
+      <Table.Cell>
+        {blog.author}
+      </Table.Cell>
+    </Table.Row>
+  )
+
+}
+
+Blog.propTypes = {
+  blog: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
+    _id: PropTypes.isRequired
+
+  }).isRequired
+}
+
+export default Blog

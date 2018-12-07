@@ -4,7 +4,7 @@ import notificationReducer from "./reducers/notificationReducer"
 import loginReducer from "./reducers/loginReducer"
 import blogReducer from "./reducers/blogReducer"
 import usersReducer from "./reducers/usersReducer"
-import commentFormFieldReducer from './reducers/commentFormFieldReducer'
+import commentFormFieldReducer from "./reducers/commentFormFieldReducer"
 
 const reducer = combineReducers({
   notification: notificationReducer,

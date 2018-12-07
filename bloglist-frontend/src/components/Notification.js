@@ -1,14 +1,17 @@
 import React from "react"
 import { connect } from "react-redux"
+import { Message } from "semantic-ui-react"
 
 const Notification = ({ message, isError }) => {
   if (message === "") {
     return null
   }
+
+
   return (
-    <div className={isError ? "error" : "notification"}>
+    <Message error={isError} success={!isError} >
       {message}
-    </div>
+    </Message>
   )
 }
 

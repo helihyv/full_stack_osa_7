@@ -17,6 +17,7 @@ import UserList from "./components/UserList"
 import {initializeUsers} from "./reducers/usersReducer"
 import UserInfo from './components/UserInfo'
 import BlogView from "./components/BlogView"
+import { Container, Button } from 'semantic-ui-react'
 
 
 
@@ -34,20 +35,26 @@ class Togglable extends React.Component {
     this.setState({visible: !this.state.visible})
   }
 
+
   render() {
+
     const hideWhenvisible = { display: this.state.visible ? 'none': '' }
     const showWhenVisible = { display: this.state.visible ? '' : 'none' }
 
+    const buttonStyle = {
+      marginTop: 10
+    }
+
     return (
-      <div>
+      <Container>
         <div style={hideWhenvisible}>
-          <button onClick= {this.toggleVisibility}>{this.props.buttonLabel}</button>
+          <Button onClick= {this.toggleVisibility}>{this.props.buttonLabel}</Button>
         </div>
         <div style={showWhenVisible}>
           {this.props.children}
-          <button onClick={this.toggleVisibility}>cancel</button>
+          <Button style={buttonStyle} onClick={this.toggleVisibility}>cancel</Button>
         </div>
-      </div>
+      </Container>
     )
   }
 }
@@ -102,6 +109,8 @@ class App extends React.Component {
  
         <h2>Blog app</h2>
         <Notification />
+        <Router>
+        <div> 
         <LoginInfo />        
 
         <Togglable buttonLabel='new blog' >
@@ -111,8 +120,8 @@ class App extends React.Component {
             url={this.state.url}
           />
         </Togglable>
-        <Router>
-          <div>
+
+     
         <Route exact path="/" render={() => <BlogList/>} />
         <Route exact path="/users" render={() => <UserList/>} />
         <Route exact path="/users/:id" render={({match}) => <UserInfo userId={match.params.id}/>} />

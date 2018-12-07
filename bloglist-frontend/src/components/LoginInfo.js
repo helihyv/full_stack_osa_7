@@ -2,6 +2,8 @@ import React from 'react'
 import { logout } from '../reducers/loginReducer'
 import { notify } from '../reducers/notificationReducer'
 import { connect } from 'react-redux' 
+import { Button, Menu} from 'semantic-ui-react'
+import { NavLink } from 'react-router-dom'
 
 class LoginInfo extends React.Component {
 
@@ -15,11 +17,21 @@ class LoginInfo extends React.Component {
     render () { 
     return (
 
-        <div> 
-            <a href="/">Blogs</a> &nbsp;
-            <a href="/users">Users</a>&nbsp;
-            <em> {this.props.userFullName} logged in </em><button type="button" onClick={this.handleClick} >logout</button>
-        </div>
+        <Menu inverted> 
+            <Menu.Item link>
+                <NavLink to="/">Blogs</NavLink>
+            </Menu.Item>
+
+            <Menu.Item link>
+                <NavLink to="/users">Users</NavLink>
+            </Menu.Item>
+            <Menu.Item>
+                <em> {this.props.userFullName} logged in</em> 
+            </Menu.Item>
+            <Menu.Item>
+                <Button type="button" onClick={this.handleClick} >logout</Button>
+            </Menu.Item>
+        </Menu>
     )}
 }
 

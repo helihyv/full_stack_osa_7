@@ -3,13 +3,14 @@ import { connect } from "react-redux"
 import { deleteBlog } from "../reducers/blogReducer"
 import { notify } from "../reducers/notificationReducer"
 import PropTypes from "prop-types"
+import { Button } from "semantic-ui-react"
 
 const DeleteButton = (props) => {
 
   if (props.blog.user && props.currentUser && props.blog.user.username !== props.currentUser.username) {
     return null
   } else {
-    return (<button type="button" onClick={handleClick(props.blog, props.deleteBlog, props.notify)} >delete</button>)
+    return (<Button type="button" onClick={handleClick(props.blog, props.deleteBlog, props.notify)} >delete</Button>)
   }
 }
 

@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { createBlog } from './../reducers/blogReducer'
 import { notify } from './../reducers/notificationReducer'
+import { Form, Button} from 'semantic-ui-react'
 
 class BlogForm extends React.Component  { 
     
@@ -42,36 +43,36 @@ class BlogForm extends React.Component  {
     return (
     <div> 
       <h3>create new</h3>
-      <form onSubmit={this.handleCreateBlog} >
-        <div>
-          title
+      <Form onSubmit={this.handleCreateBlog} >
+        <Form.Field>
+          <label>title</label>
           <input
             type="text"
             name="title"
             value={this.state.title}
             onChange={this.handleChange}
           />
-        </div>
-        <div>
-          author
+        </Form.Field>
+        <Form.Field>
+        <label>author</label>
           <input
             type="text"
             name="author"
             value={this.state.author}
             onChange={this.handleChange}
           />
-        </div>
-        <div>
-          url
+        </Form.Field>
+        <Form.Field>
+        <label>url</label>
           <input
             type="text"
             name="url"
             value={this.state.url}
             onChange={this.handleChange}
           />
-        </div>
-        <button type="submit">create</button>
-      </form>
+        </Form.Field>
+        <Button type="submit">create</Button>
+      </Form>
     </div> 
   
     )

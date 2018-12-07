@@ -28,7 +28,7 @@ const blogReducer = (store = initialState, action) => {
     const oldBlogs = store.filter(a => a._id !== action.id)
     const commented = store.find(a => a._id === action.id)
     let updatedComments = commented.comments ? commented.comments : []
-    updatedComments = updatedComments.concat(action.comment) 
+    updatedComments = updatedComments.concat(action.comment)
     return [...oldBlogs, { ...commented, comments: updatedComments }]
 
   }

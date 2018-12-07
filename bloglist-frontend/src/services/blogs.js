@@ -48,8 +48,8 @@ const remove = async (id) => {
 }
 
 const createComment = async (comment, blogId) => {
-  
- 
+
+
   await axios.post(baseUrl.concat("/").concat(blogId).concat("/comments"), { comment })
 
 }
